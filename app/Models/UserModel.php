@@ -19,8 +19,12 @@ class UserModel extends Model
         'bisa_online',
         'alasan_tidak_bisa_online',
         'absen_h1',
-        'respon_h1'
-
+        'respon_h1',
+        'absen_h2',
+        'respon_h2',
+        'absen_h3',
+        'respon_h3',
+        'pesan_kesan'
     ];
 
 

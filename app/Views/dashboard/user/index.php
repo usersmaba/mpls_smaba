@@ -86,7 +86,7 @@
 
               <?php if ($jam_pesan_kesan <= $today && $jam_pesan_kesan_end >= $today) { ?>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Jejak Pendapat Hari Ketiga</label>
+                  <label for="exampleInputEmail1">Kesan dan Pesan untuk MPLS Tahun 2020</label>
                   <textarea class="form-control responsi" id="responsi" rows="15" data-absen="pesan_kesan" placeholder="Isikan pendapat anda tetnang PLS hari ini "><?= $user_info['pesan_kesan']; ?></textarea>
                 </div>
               <?php } ?>
