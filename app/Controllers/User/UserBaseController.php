@@ -3,6 +3,7 @@
 namespace App\Controllers\User;
 
 use App\Models\UserModel;
+use App\Models\JadwalModel;
 
 /**
  * Class BaseController
@@ -37,6 +38,8 @@ class UserBaseController extends Controller
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
 		$this->UserModel =  new UserModel();
+		$this->JadwalModel =  new JadwalModel();
+
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		$session = \Config\Services::session();
@@ -45,6 +48,7 @@ class UserBaseController extends Controller
 		$this->user_id = $session->get('id_peserta');
 
 		$this->user_name = $this->UserModel->get_user($this->user_id); // Get Login User ID
+		$this->jadwal = $this->JadwalModel->get_jadwal(); // Get Login User ID
 
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.

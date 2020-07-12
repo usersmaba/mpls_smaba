@@ -31,6 +31,7 @@ class Home extends AdminBaseController
 
         return redirect()->to(base_url('/user'));
     }
+
     public function import()
     {
         $data['view'] = 'dashboard/admin/import';

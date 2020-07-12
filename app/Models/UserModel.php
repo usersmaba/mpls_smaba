@@ -18,6 +18,8 @@ class UserModel extends Model
         'merek_hp',
         'bisa_online',
         'alasan_tidak_bisa_online',
+        'absen_h1',
+        'respon_h1'
 
     ];
 
@@ -35,5 +37,12 @@ class UserModel extends Model
     {
         $this->insertBatch($data);
         return true;
+    }
+    public function save_absen($data, $no_pendaftaran)
+    {
+        $this->where('id_peserta', $no_pendaftaran);
+        //  $this->set($data);
+        $this->update($no_pendaftaran, $data);
+        echo 1;
     }
 }

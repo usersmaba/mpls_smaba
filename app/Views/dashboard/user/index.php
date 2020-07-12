@@ -5,6 +5,22 @@
           Data Diri
         </h1>
       </section>
+      <?php $today = time();
+      $jam_absen_h1 = $jadwal['jam_absen_h1'];
+      $jam_absen_h1_end = $jadwal['jam_absen_h1_end'];
+      $jam_respon_h1 = $jadwal['jam_respon_h1'];
+      $jam_respon_h1_end = $jadwal['jam_respon_h1_end'];
+      $jam_absen_h2 = $jadwal['jam_absen_h2'];
+      $jam_absen_h2_end = $jadwal['jam_absen_h2_end'];
+      $jam_respon_h2 = $jadwal['jam_respon_h2'];
+      $jam_respon_h2_end = $jadwal['jam_respon_h2_end'];
+      $jam_absen_h3 = $jadwal['jam_absen_h3'];
+      $jam_absen_h3_end = $jadwal['jam_absen_h3_end'];
+      $jam_respon_h3 = $jadwal['jam_respon_h3'];
+      $jam_respon_h3_end = $jadwal['jam_respon_h3_end'];
+      $jam_pesan_kesan = $jadwal['jam_pesan_kesan'];
+      $jam_pesan_kesan_end  = $jadwal['jam_pesan_kesan_end'];
+      ?>
 
       <!-- Main content -->
       <section class="content container-fluid">
@@ -12,6 +28,74 @@
         <div class="col-md-6">
           <!-- general form elements -->
           <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Absen Hadir </h3>
+            </div>
+            <div class="box-body" style="text-align: center;">
+
+              <?php if ($jam_absen_h1 <= $today && $jam_absen_h1_end >= $today) { ?>
+                <label>Daftar Hadir Hari Pertama</label>
+                <div class="form-group">
+                  <input type="checkbox" id="myCheck" class="myCheck" data-absen="absen_h1" <?php if ($user_info['absen_h1'] == '-') {
+                                                                                            } else {
+                                                                                              echo 'checked';
+                                                                                            } ?>>
+                </div>
+                <label>Ceklis untuk mengisi daftar hadir</label>
+              <?php } ?>
+              <?php if ($jam_respon_h1 <= $today && $jam_respon_h1_end >= $today) { ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Jejak Pendapat Hari Pertama</label>
+                  <textarea class="form-control responsi" id="responsi" rows="15" data-absen="respon_h1" placeholder="Isikan pendapat anda tetnang PLS hari ini "><?= $user_info['respon_h1']; ?></textarea>
+                </div>
+              <?php } ?>
+
+              <?php if ($jam_absen_h2 <= $today && $jam_absen_h2_end >= $today) { ?>
+                <label>Daftar Hadir Hari Kedua</label>
+                <div class="form-group">
+                  <input type="checkbox" id="myCheck" class="myCheck" data-absen="absen_h2" <?php if ($user_info['absen_h2'] == '-') {
+                                                                                            } else {
+                                                                                              echo 'checked';
+                                                                                            } ?>>
+                </div>
+                <label>Ceklis untuk mengisi daftar hadir</label>
+              <?php } ?>
+              <?php if ($jam_respon_h2 <= $today && $jam_respon_h2_end >= $today) { ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Jejak Pendapat Hari Kedua</label>
+                  <textarea class="form-control responsi" id="responsi" rows="15" data-absen="respon_h2" placeholder="Isikan pendapat anda tetnang PLS hari ini "><?= $user_info['respon_h2']; ?></textarea>
+                </div>
+              <?php } ?>
+
+              <?php if ($jam_absen_h3 <= $today && $jam_absen_h3_end >= $today) { ?>
+                <label>Daftar Hadir Hari Ketiga</label>
+                <div class="form-group">
+                  <input type="checkbox" id="myCheck" class="myCheck" data-absen="absen_h3" <?php if ($user_info['absen_h3'] == '-') {
+                                                                                            } else {
+                                                                                              echo 'checked';
+                                                                                            } ?>>
+                </div>
+                <label>Ceklis untuk mengisi daftar hadir</label>
+              <?php } ?>
+              <?php if ($jam_respon_h3 <= $today && $jam_respon_h3_end >= $today) { ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Jejak Pendapat Hari Ketiga</label>
+                  <textarea class="form-control responsi" id="responsi" rows="15" data-absen="respon_h3" placeholder="Isikan pendapat anda tetnang PLS hari ini "><?= $user_info['respon_h3']; ?></textarea>
+                </div>
+              <?php } ?>
+
+              <?php if ($jam_pesan_kesan <= $today && $jam_pesan_kesan_end >= $today) { ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Jejak Pendapat Hari Ketiga</label>
+                  <textarea class="form-control responsi" id="responsi" rows="15" data-absen="pesan_kesan" placeholder="Isikan pendapat anda tetnang PLS hari ini "><?= $user_info['pesan_kesan']; ?></textarea>
+                </div>
+              <?php } ?>
+
+            </div>
+          </div>
+
+
+          <div class=" box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Data DIri</h3>
             </div>
@@ -93,3 +177,43 @@
       </section>
       <!-- /.content -->
     </div>
+    <script>
+      $("body").on("change", ".myCheck", function() {
+        var test = moment();
+        var asd = test.format('HH:mm:ss');
+        //dateElement.value = new Date().toISOString().substr(0, 10);
+        if ($(this).is(':checked') == true) {
+          var absen = $(this).data('absen');
+          $.post('<?= base_url("user/simpan_absen") ?>', {
+              '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+              no_pendaftaran: <?= $user_info['id_peserta']; ?>,
+              var1: asd,
+              var2: absen
+            },
+            function(data) {});
+        } else {
+          var absen = $(this).data('absen');
+          $.post('<?= base_url("user/simpan_absen") ?>', {
+              '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+              no_pendaftaran: <?= $user_info['id_peserta']; ?>,
+              var1: '-',
+              var2: absen
+            },
+            function(data) {});
+        }
+      });
+    </script>
+    <script>
+      $("body").on("change", ".responsi", function() {
+        var asd = document.getElementById("responsi").value;
+        //dateElement.value = new Date().toISOString().substr(0, 10);
+        var absen = $(this).data('absen');
+        $.post('<?= base_url("user/simpan_absen") ?>', {
+            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+            no_pendaftaran: <?= $user_info['id_peserta']; ?>,
+            var1: asd,
+            var2: absen
+          },
+          function(data) {});
+      });
+    </script>

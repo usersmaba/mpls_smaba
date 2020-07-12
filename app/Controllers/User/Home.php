@@ -8,6 +8,7 @@ class Home extends UserBaseController
     {
         $data['view'] = 'dashboard/user/index';
         $data['user_info'] = $this->user_name;
+        $data['jadwal'] = $this->jadwal;
         return view('dashboard/layout', $data);
     }
     public function absen()
@@ -30,6 +31,18 @@ class Home extends UserBaseController
         $this->session->setFlashdata('tersimpan', 'Data berhasil disimpan');
 
         return redirect()->to(base_url('/user'));
+    }
+
+    public function simpan_absen()
+    {
+        $field_absen = $this->request->getPost('var2');
+        $value_absen = $this->request->getPost('var1');
+        $data = array(
+            $field_absen => $value_absen,
+        );
+        $no_pendaftaran = $this->request->getPost('no_pendaftaran');
+
+        $this->UserModel->save_absen($data, $no_pendaftaran);
     }
     //--------------------------------------------------------------------
 

@@ -41,6 +41,7 @@ $routes->post('/cp', 'Auth::login_admin');
 $routes->group('user', ['filter' => 'admin_auth'], function ($routes) {
 	$routes->get('/', 'User\Home::index');
 	$routes->post('simpan', 'User\Home::simpan');
+	$routes->post('simpan_absen', 'User\Home::simpan_absen');
 });
 
 $routes->group('admin', ['filter' => 'admin_auth'], function ($routes) {
